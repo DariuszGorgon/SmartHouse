@@ -18,8 +18,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
@@ -52,20 +51,20 @@
                            <children>
                               <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="346.0" prefWidth="605.0" spacing="5.0">
                                  <children>
-                                    <TableView fx:id="eventsTableView" nodeOrientation="LEFT_TO_RIGHT" prefHeight="307.0" prefWidth="388.0">
+                                    <TableView fx:id="eventsTableView" nodeOrientation="LEFT_TO_RIGHT" prefHeight="235.0" prefWidth="540.0">
                                       <columns>
-                                        <TableColumn prefWidth="117.0" text="Data" />
-                                        <TableColumn prefWidth="315.0" text="Opis" />
+                                        <TableColumn fx:id="tabDate" prefWidth="117.0" text="Data" />
+                                        <TableColumn fx:id="tabInfo" prefWidth="315.0" text="Opis" />
                                       </columns>
                                        <VBox.margin>
                                           <Insets top="30.0" />
                                        </VBox.margin>
                                     </TableView>
-                                    <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                                    <HBox prefHeight="87.0" prefWidth="540.0" spacing="10.0">
                                        <children>
                                           <TextField alignment="CENTER" promptText="Filtruj" />
                                           <Button mnemonicParsing="false" text="Filtruj" />
-                                          <HBox alignment="TOP_RIGHT" prefHeight="52.0" prefWidth="326.0">
+                                          <HBox alignment="TOP_RIGHT" prefHeight="60.0" prefWidth="327.0">
                                              <children>
                                                 <Button alignment="CENTER_RIGHT" mnemonicParsing="false" text="Wyczyść wszystko" />
                                              </children>
@@ -178,4 +177,7 @@
         </tabs>
       </TabPane>
    </center>
+   <bottom>
+      <Button mnemonicParsing="false" onAction="#sendInit" prefHeight="25.0" prefWidth="216.0" text="Test Connection" BorderPane.alignment="CENTER" />
+   </bottom>
 </BorderPane>
