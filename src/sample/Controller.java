@@ -22,8 +22,8 @@ public class Controller {
 
     public void sendInit(ActionEvent actionEvent) throws IOException {
 
-        String newAdress = new String("192.168.0.14");
-        int newPort = 8888;
+        String newAdress = new String("127.0.0.1");
+        int newPort = 56635;
         //
         Client client = new Client(newAdress);
 
