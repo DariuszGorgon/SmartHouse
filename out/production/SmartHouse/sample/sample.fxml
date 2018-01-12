@@ -4,13 +4,12 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -51,15 +50,11 @@
                            <children>
                               <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="346.0" prefWidth="605.0" spacing="5.0">
                                  <children>
-                                    <TableView fx:id="eventsTableView" nodeOrientation="LEFT_TO_RIGHT" prefHeight="235.0" prefWidth="540.0">
-                                      <columns>
-                                        <TableColumn fx:id="tabDate" prefWidth="117.0" text="Data" />
-                                        <TableColumn fx:id="tabInfo" prefWidth="315.0" text="Opis" />
-                                      </columns>
+                                    <ListView fx:id="eventsListView" prefHeight="200.0" prefWidth="200.0">
                                        <VBox.margin>
-                                          <Insets top="30.0" />
+                                          <Insets top="20.0" />
                                        </VBox.margin>
-                                    </TableView>
+                                    </ListView>
                                     <HBox prefHeight="87.0" prefWidth="540.0" spacing="10.0">
                                        <children>
                                           <TextField alignment="CENTER" promptText="Filtruj" />
