@@ -2,7 +2,7 @@ package sample;
 
 import javafx.scene.control.ListView;
 
-public interface Myinteface {
+public interface MyInterface {
 
     //metoda obsługi odpowiedzi
     void editListwiev(String loggin);

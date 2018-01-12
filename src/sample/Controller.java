@@ -14,14 +14,18 @@ import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 import java.util.logging.Logger;
 
-public class Controller implements Myinteface {
+import static java.lang.Thread.sleep;
+
+public class Controller implements MyInterface {
 
     public TableColumn tabInfo;
 
-    private  Client client;
-    Myinteface myinteface;
+
+
     @FXML
     ListView<String> eventsListView;
+
+    private MyInterface myInterface;
 
     //fragmenty do log4j
     private final ReadWriteLock rwLock = new ReentrantReadWriteLock();
@@ -33,6 +37,7 @@ public class Controller implements Myinteface {
     public void initialize()
     {
         eventsListView.setPlaceholder(new Label("Brak zdarzeń"));
+        myInterface = this;
     }
     @Override
     public void editListwiev(String loggin)
@@ -46,8 +51,26 @@ public class Controller implements Myinteface {
         String newAdress = "127.0.0.1";
         int newPort = 56635;
         //
-        client = new Client(newAdress,myinteface);
+        Client client = new Client(newAdress,myInterface);
         client.sendMes("LEDON", newPort);
+        //Tworzenie nowego wątku odpowiedzialnego za ciągłe odczytywanie temperatuty
+        Client tempClient = new Client(newAdress,myInterface);
+        Thread newThread = new Thread(()->
+        {
+            while(true){
+            try {
+                tempClient.sendMes("TEMP", newPort);
+                sleep(1000);
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            }
+
+        });
+        newThread.setName("Temperature Thread");
+        newThread.start();
 
         log.info("konsola");
 

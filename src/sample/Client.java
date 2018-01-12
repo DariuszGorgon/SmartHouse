@@ -13,14 +13,14 @@ public class Client {
     InetAddress inetAddress;
 
     //interfesy
-    private Myinteface myinteface;
+    private MyInterface myInterface;
 
     private byte [] message;
     byte [] messageIn = new byte[10];
 
-    public Client(String IPAddr, Myinteface myinteface) throws IOException {
+     Client(String IPAddr,MyInterface myInterface) throws IOException {
 
-        this.myinteface = myinteface;
+        this.myInterface = myInterface;
         try {
             newSocket = new DatagramSocket();
             inetAddress = InetAddress.getByName(IPAddr);
@@ -48,14 +48,14 @@ public class Client {
             String received = new String(
                     inputStream.getData(), 0, inputStream.getLength());
             newSocket.close();
-            this.myinteface.editListwiev(received);
+            this.myInterface.editListwiev(received);
 
             //platform.runLater(10); //używać do aktualizacji gui
             //z intefejsów metody tworzę jak klasy
         }catch (IOException e )
         {
             System.out.println(e);
-            this.myinteface.editListwiev("Dupaaa");//e.toString());
+            this.myInterface.editListwiev(e.toString());
         }
     }
 
