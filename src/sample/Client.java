@@ -11,6 +11,8 @@ public class Client {
     DatagramSocket newSocket;
     DatagramPacket outputStream, inputStream;
     InetAddress inetAddress;
+    String reciveMessage;
+    boolean openWindow;
 
     //interfesy
     private MyInterface myInterface;
@@ -36,7 +38,7 @@ public class Client {
 
     }
 
-    public void sendMes (String msg, int port) throws IOException {
+    public void sendMes (String msg, int port) throws  IOException{
 
         try {
             message = msg.getBytes();
@@ -48,14 +50,18 @@ public class Client {
             String received = new String(
                     inputStream.getData(), 0, inputStream.getLength());
             newSocket.close();
-            this.myInterface.editListwiev(received);
-
+            reciveMessage =received;
+            if (openWindow) {
+                this.myInterface.editListwiev(received);
+            }
             //platform.runLater(10); //używać do aktualizacji gui
             //z intefejsów metody tworzę jak klasy
         }catch (IOException e )
         {
             System.out.println(e);
-            this.myInterface.editListwiev(e.toString());
+            if (openWindow) {
+                this.myInterface.editListwiev(e.toString());
+            }
         }
     }
 

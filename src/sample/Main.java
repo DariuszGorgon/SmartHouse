@@ -4,20 +4,57 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class Main extends Application {
 
+    private static Main instance;
+
+    Stage smartStage;
+
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
-        primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 600, 400));
-        primaryStage.show();
+        smartStage = primaryStage;
+        Parent root = FXMLLoader.load(getClass().getResource("login_window.fxml"));
+        smartStage.setTitle("Smart House");
+        smartStage.setScene(new Scene(root, 230, 120));
+        smartStage.show();
+
+//        LoginWindow controller =
+//                root.<LoginWindow>getController();
+//        controller.initManager(this);
+//        Scene scene = new Scene(new BorderPane(),600,400);
+//
+//        Manager loginManager = new Manager(scene);
+//        loginManager.showLoginScreen();
+//
+//        primaryStage.setScene(scene);
+//        primaryStage.sizeToScene();
+//        primaryStage.hide();
+//        primaryStage.show();
     }
 
 
     public static void main(String[] args) {
         launch(args);
+    }
+
+    void setSceneSettings() {
+        try {
+            smartStage.setScene(new Scene(FXMLLoader.load(getClass().getResource("sample.fxml")),600,400));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Main() {
+        instance = this;
+    }
+    static Main getInstance() {
+        return instance;
     }
 }

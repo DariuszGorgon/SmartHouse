@@ -173,6 +173,9 @@
       </TabPane>
    </center>
    <bottom>
-      <Button mnemonicParsing="false" onAction="#sendInit" prefHeight="25.0" prefWidth="216.0" text="Test Connection" BorderPane.alignment="CENTER" />
+      <Button mnemonicParsing="false" onAction="#sendInit" prefHeight="25.0" prefWidth="150.0" text="Test Connection" BorderPane.alignment="TOP_LEFT">
+         <BorderPane.margin>
+            <Insets bottom="10.0" left="10.0" top="10.0" />
+         </BorderPane.margin></Button>
    </bottom>
 </BorderPane>

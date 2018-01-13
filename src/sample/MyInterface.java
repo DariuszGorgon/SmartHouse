@@ -6,4 +6,5 @@ public interface MyInterface {
 
     //metoda obsługi odpowiedzi
     void editListwiev(String loggin);
+
 }

@@ -21,7 +21,6 @@ public class Controller implements MyInterface {
     public TableColumn tabInfo;
 
 
-
     @FXML
     ListView<String> eventsListView;
 
@@ -38,7 +37,7 @@ public class Controller implements MyInterface {
     {
         eventsListView.setPlaceholder(new Label("Brak zdarzeń"));
         myInterface = this;
-    }
+        }
     @Override
     public void editListwiev(String loggin)
     {
@@ -52,6 +51,7 @@ public class Controller implements MyInterface {
         int newPort = 56635;
         //
         Client client = new Client(newAdress,myInterface);
+        client.openWindow = true;
         client.sendMes("LEDON", newPort);
         //Tworzenie nowego wątku odpowiedzialnego za ciągłe odczytywanie temperatuty
         Client tempClient = new Client(newAdress,myInterface);
@@ -61,9 +61,10 @@ public class Controller implements MyInterface {
             try {
                 tempClient.sendMes("TEMP", newPort);
                 sleep(1000);
-            } catch (IOException e) {
-                e.printStackTrace();
+
             } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
                 e.printStackTrace();
             }
             }
