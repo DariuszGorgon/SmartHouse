@@ -43,17 +43,9 @@ public class LoginWindow {
 
     }
 
-    /**
-     * Check authorization credentials.
-     *
-     * If accepted, return a sessionID for the authorized session
-     * otherwise, return null.
-     */
     private String authorize(String compare) {
-
-
         return
-                "CONNECTOK".equals("CONNECTOK")
+                "CONNECT_OK\n".equals(compare)
                         ? generateSessionID()
                         : null;
     }

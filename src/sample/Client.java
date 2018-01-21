@@ -18,7 +18,7 @@ public class Client {
     private MyInterface myInterface;
 
     private byte [] message;
-    byte [] messageIn = new byte[10];
+    byte [] messageIn = new byte[15];
 
      Client(String IPAddr,MyInterface myInterface) throws IOException {
 
@@ -49,10 +49,21 @@ public class Client {
             newSocket.receive(inputStream);
             String received = new String(
                     inputStream.getData(), 0, inputStream.getLength());
-            newSocket.close();
+
             reciveMessage =received;
             if (openWindow) {
                 this.myInterface.editListwiev(received);
+                switch (msg){
+                    case "TEMP_1":
+                        this.myInterface.setTemp1(received);
+                        //platform.runLater(10);
+                        break;
+                    case "TEMP_2":
+                        this.myInterface.setTemp2(received);
+                        break;
+                }
+                // case lub if który wpisuje w odpowiednie pola informacje z recivera
+
             }
             //platform.runLater(10); //używać do aktualizacji gui
             //z intefejsów metody tworzę jak klasy
@@ -65,7 +76,9 @@ public class Client {
         }
     }
 
-    public void close () {
-        newSocket.close();
+    public void connectSocket (int port) {
+        newSocket.connect(inetAddress,port);
     }
+
+
 }

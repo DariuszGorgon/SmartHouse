@@ -24,18 +24,7 @@ public class Main extends Application {
         smartStage.setScene(new Scene(root, 230, 120));
         smartStage.show();
 
-//        LoginWindow controller =
-//                root.<LoginWindow>getController();
-//        controller.initManager(this);
-//        Scene scene = new Scene(new BorderPane(),600,400);
-//
-//        Manager loginManager = new Manager(scene);
-//        loginManager.showLoginScreen();
-//
-//        primaryStage.setScene(scene);
-//        primaryStage.sizeToScene();
-//        primaryStage.hide();
-//        primaryStage.show();
+        smartStage.setOnCloseRequest(event -> Controller.getInstance().setStopThread(false));
     }
 
 

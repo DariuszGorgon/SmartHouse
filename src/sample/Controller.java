@@ -1,5 +1,10 @@
 package sample;
 
+import javafx.application.Platform;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -18,9 +23,17 @@ import static java.lang.Thread.sleep;
 
 public class Controller implements MyInterface {
 
-    public TableColumn tabInfo;
+    private static Controller instance;
+
+    public Label temp2;
 
 
+    public void setStopThread(boolean stopThread) {
+        this.stopThread = stopThread;
+    }
+
+    private volatile boolean stopThread;
+    public Label temp1;
     @FXML
     ListView<String> eventsListView;
 
@@ -37,30 +50,42 @@ public class Controller implements MyInterface {
     {
         eventsListView.setPlaceholder(new Label("Brak zdarzeń"));
         myInterface = this;
+        stopThread = true;
         }
     @Override
-    public void editListwiev(String loggin)
-    {
+    public void editListwiev(String loggin) {
         eventsListView.setCellFactory(TextFieldListCell.forListView());
-        eventsListView.getItems().add(loggin);
+        Platform.runLater(() -> eventsListView.getItems().add(loggin));
+    }
+
+    public void setTemp1(String checkT1) {
+        Platform.runLater(() -> temp1.setText(checkT1));
+    }
+
+    public void setTemp2(String checkT2) {
+        Platform.runLater(() -> temp2.setText(checkT2));
     }
 
     public void sendInit(ActionEvent actionEvent) throws IOException {
 
-        String newAdress = "127.0.0.1";
-        int newPort = 56635;
+        String newAdress = "192.168.0.14";
+        int newPort = 8888;
         //
         Client client = new Client(newAdress,myInterface);
         client.openWindow = true;
         client.sendMes("LEDON", newPort);
         //Tworzenie nowego wątku odpowiedzialnego za ciągłe odczytywanie temperatuty
         Client tempClient = new Client(newAdress,myInterface);
+        tempClient.openWindow = true;
         Thread newThread = new Thread(()->
         {
-            while(true){
+            while(stopThread){
             try {
-                tempClient.sendMes("TEMP", newPort);
+
+                tempClient.sendMes("TEMP_1", newPort);
+                tempClient.sendMes("TEMP_2",newPort);
                 sleep(1000);
+
 
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -75,11 +100,13 @@ public class Controller implements MyInterface {
 
         log.info("konsola");
 
-
-
-
-
     }
 
+    public Controller() {
+        instance = this;
+    }
+    static Controller getInstance() {
+        return instance;
+    }
 
 }

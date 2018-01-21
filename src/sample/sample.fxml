@@ -90,7 +90,7 @@
                                           <Font name="Arial Black" size="19.0" />
                                        </font>
                                     </Label>
-                                    <Label text="23">
+                                    <Label fx:id="temp1" prefHeight="55.0" prefWidth="247.0" text="10">
                                        <font>
                                           <Font name="LCD" size="38.0" />
                                        </font>
@@ -109,7 +109,7 @@
                                           <Font name="Arial Black" size="19.0" />
                                        </font>
                                     </Label>
-                                    <Label text="10">
+                                    <Label fx:id="temp2" prefHeight="54.0" prefWidth="248.0" text="10">
                                        <font>
                                           <Font name="LCD" size="37.0" />
                                        </font>
