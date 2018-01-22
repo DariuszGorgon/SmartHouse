@@ -5,15 +5,15 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.TextFieldListCell;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
@@ -26,7 +26,16 @@ public class Controller implements MyInterface {
     private static Controller instance;
 
     public Label temp2;
+    public ComboBox<String> setParam;
+    public TextField setTempVar;
+    public ComboBox<String> thresholdValue;
+    public ComboBox<String> setAction;
 
+    private List<String> paramList;
+    private List<String> threshList;
+    private List<String> actionList;
+
+    private Action stringAction;
 
     public void setStopThread(boolean stopThread) {
         this.stopThread = stopThread;
@@ -51,53 +60,65 @@ public class Controller implements MyInterface {
         eventsListView.setPlaceholder(new Label("Brak zdarzeń"));
         myInterface = this;
         stopThread = true;
+
+        paramList = new ArrayList<>();
+        paramList.add("Temp. 1");
+        paramList.add("Temp. 2");
+        setParam.getItems().addAll(paramList);
+
+
+        threshList = new ArrayList<>();
+        threshList.add("Próg górny");
+        threshList.add("Próg dolny");
+        thresholdValue.getItems().addAll(threshList);
+
+        actionList = new ArrayList<>();
+        actionList.add("Włącz Klimatyzację");
+        actionList.add("Otwórz okno");
+        actionList.add("inne takie");
+        setAction.getItems().addAll(actionList);
+
         }
     @Override
     public void editListwiev(String loggin) {
         eventsListView.setCellFactory(TextFieldListCell.forListView());
         Platform.runLater(() -> eventsListView.getItems().add(loggin));
     }
-
     public void setTemp1(String checkT1) {
         Platform.runLater(() -> temp1.setText(checkT1));
     }
-
     public void setTemp2(String checkT2) {
         Platform.runLater(() -> temp2.setText(checkT2));
     }
-
     public void sendInit(ActionEvent actionEvent) throws IOException {
 
-        String newAdress = "192.168.0.14";
-        int newPort = 8888;
+        String newAdress = LoginWindow.getInstance().ipAddres;
+        int newPort = LoginWindow.getInstance().portNum;
         //
         Client client = new Client(newAdress,myInterface);
         client.openWindow = true;
-        client.sendMes("LEDON", newPort);
+        client.port =newPort;
+        client.sendMes("LEDON");
         //Tworzenie nowego wątku odpowiedzialnego za ciągłe odczytywanie temperatuty
         Client tempClient = new Client(newAdress,myInterface);
         tempClient.openWindow = true;
+        tempClient.port = newPort;
         Thread newThread = new Thread(()->
         {
             while(stopThread){
             try {
-
-                tempClient.sendMes("TEMP_1", newPort);
-                tempClient.sendMes("TEMP_2",newPort);
+                tempClient.sendMes("TEMP_1");
+                tempClient.sendMes("TEMP_2");
                 sleep(1000);
-
-
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
             }
             }
-
         });
         newThread.setName("Temperature Thread");
         newThread.start();
-
         log.info("konsola");
 
     }
@@ -109,4 +130,26 @@ public class Controller implements MyInterface {
         return instance;
     }
 
+    public void clicButton(ActionEvent actionEvent) {
+
+        String name = setParam.getValue();
+        String threshold = thresholdValue.getValue();
+        String setting = setAction.getValue();
+        if (!setTempVar.getText().matches("[0-9]*.[0-9]*")| setTempVar.getText().isEmpty()){
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Uwaga!");
+            alert.setHeaderText("Pole parametru jest puste lub nie jest liczbą");
+            alert.setContentText("Sprawdź czy podałeś dobre wartości");
+            alert.showAndWait();
+
+        }else{
+            float value = Float.parseFloat(setTempVar.getText());
+            stringAction = new Action(name,value,threshold,setting);
+
+
+            String message = stringAction.getName() +
+                    "=" + Float.toString(stringAction.getValue()) + "\n" + stringAction.getThreshold() + "=" + stringAction.getSetting();
+            System.out.println(message);
+        }
+    }
 }

@@ -13,6 +13,8 @@ public class Client {
     InetAddress inetAddress;
     String reciveMessage;
     boolean openWindow;
+    Integer port;
+
 
     //interfesy
     private MyInterface myInterface;
@@ -20,12 +22,12 @@ public class Client {
     private byte [] message;
     byte [] messageIn = new byte[15];
 
-     Client(String IPAddr,MyInterface myInterface) throws IOException {
+     Client(String Addr,MyInterface myInterface) throws IOException {
 
         this.myInterface = myInterface;
         try {
             newSocket = new DatagramSocket();
-            inetAddress = InetAddress.getByName(IPAddr);
+            inetAddress = InetAddress.getByName(Addr);
             newSocket.setSoTimeout(100);
         }
         catch (UnknownHostException e) {
@@ -38,7 +40,7 @@ public class Client {
 
     }
 
-    public void sendMes (String msg, int port) throws  IOException{
+    public void sendMes (String msg) throws  IOException{
 
         try {
             message = msg.getBytes();
@@ -76,7 +78,7 @@ public class Client {
         }
     }
 
-    public void connectSocket (int port) {
+    public void connectSocket () {
         newSocket.connect(inetAddress,port);
     }
 

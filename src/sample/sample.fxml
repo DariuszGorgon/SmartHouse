@@ -14,6 +14,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -40,7 +41,7 @@
       </MenuBar>
    </top>
    <center>
-      <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+      <TabPane tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
         <tabs>
             <Tab text="Zdarzenia">
               <content>
@@ -66,6 +67,11 @@
                                           </HBox>
                                        </children>
                                     </HBox>
+                                    <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#sendInit" prefHeight="25.0" prefWidth="150.0" text="Test Connection">
+                                       <VBox.margin>
+                                          <Insets left="40.0" />
+                                       </VBox.margin>
+                                    </Button>
                                  </children>
                                  <HBox.margin>
                                     <Insets left="30.0" right="30.0" />
@@ -79,11 +85,11 @@
             </Tab>
           <Tab text="Temperatura">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <AnchorPane>
                      <children>
-                        <VBox alignment="CENTER" prefHeight="357.0" prefWidth="600.0">
+                        <VBox alignment="CENTER">
                            <children>
-                              <HBox alignment="CENTER" prefHeight="42.0" prefWidth="274.0">
+                              <HBox alignment="CENTER" VBox.vgrow="ALWAYS">
                                  <children>
                                     <Label text="Temperatura 1: " textAlignment="CENTER">
                                        <font>
@@ -101,8 +107,11 @@
                                        </font>
                                     </Label>
                                  </children>
+                                 <VBox.margin>
+                                    <Insets top="40.0" />
+                                 </VBox.margin>
                               </HBox>
-                              <HBox alignment="CENTER" prefHeight="58.0" prefWidth="274.0">
+                              <HBox alignment="CENTER">
                                  <children>
                                     <Label text="Temperatura 2: ">
                                        <font>
@@ -126,29 +135,80 @@
                                     <Font name="Arial Black" size="31.0" />
                                  </font>
                               </Label>
-                              <HBox prefHeight="248.0" prefWidth="600.0">
+                              <HBox>
                                  <children>
-                                    <VBox alignment="CENTER" prefHeight="232.0" prefWidth="603.0" spacing="5.0">
+                                    <VBox alignment="CENTER" spacing="5.0" HBox.hgrow="ALWAYS">
                                        <children>
-                                          <Label text="Parametr">
-                                             <font>
-                                                <Font name="Arial Black" size="12.0" />
-                                             </font>
-                                          </Label>
-                                          <ComboBox prefWidth="150.0" promptText="Wybierz parametr" />
-                                          <Label text="Wartość">
-                                             <font>
-                                                <Font name="Arial Black" size="12.0" />
-                                             </font>
-                                          </Label>
-                                          <HBox alignment="CENTER" prefHeight="40.0" prefWidth="600.0">
+                                          <HBox>
                                              <children>
-                                                <TextField prefHeight="25.0" prefWidth="176.0" promptText="Podaj wartość temperatury" />
-                                                <ComboBox prefWidth="150.0" promptText="Mniejsza niż" />
+                                                <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" text="Parametr">
+                                                   <font>
+                                                      <Font name="Arial Black" size="12.0" />
+                                                   </font>
+                                                   <HBox.margin>
+                                                      <Insets left="40.0" top="10.0" />
+                                                   </HBox.margin>
+                                                   <padding>
+                                                      <Insets left="5.0" right="5.0" />
+                                                   </padding>
+                                                </Label>
+                                                <Region HBox.hgrow="ALWAYS" />
+                                                <Label text="Wartość">
+                                                   <font>
+                                                      <Font name="Arial Black" size="12.0" />
+                                                   </font>
+                                                   <HBox.margin>
+                                                      <Insets left="10.0" top="10.0" />
+                                                   </HBox.margin>
+                                                   <padding>
+                                                      <Insets left="5.0" right="5.0" />
+                                                   </padding>
+                                                </Label>
+                                                <Region HBox.hgrow="ALWAYS" />
+                                                <Label text="Akcja">
+                                                   <font>
+                                                      <Font name="Arial Black" size="12.0" />
+                                                   </font>
+                                                   <HBox.margin>
+                                                      <Insets left="19.0" right="60.0" top="10.0" />
+                                                   </HBox.margin>
+                                                   <padding>
+                                                      <Insets left="5.0" right="5.0" />
+                                                   </padding>
+                                                </Label>
                                              </children>
+                                             <VBox.margin>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                             </VBox.margin>
                                           </HBox>
-                                          <Label text="Akcja" />
-                                          <ComboBox prefWidth="150.0" promptText="Włącz klimatyzację" />
+                                          <HBox>
+                                             <children>
+                                                <ComboBox fx:id="setParam" promptText="Wybierz parametr">
+                                                   <HBox.margin>
+                                                      <Insets left="15.0" right="5.0" />
+                                                   </HBox.margin>
+                                                </ComboBox>
+                                                <Region HBox.hgrow="ALWAYS" />
+                                                <TextField fx:id="setTempVar" prefHeight="25.0" prefWidth="109.0" promptText="Podaj wartość temp.">
+                                                   <HBox.margin>
+                                                      <Insets left="10.0" right="5.0" />
+                                                   </HBox.margin></TextField>
+                                                <ComboBox fx:id="thresholdValue" prefHeight="25.0" prefWidth="110.0" promptText="Mniejsza niż">
+                                                   <HBox.margin>
+                                                      <Insets left="5.0" right="5.0" />
+                                                   </HBox.margin></ComboBox>
+                                                <Region HBox.hgrow="ALWAYS" />
+                                                <ComboBox fx:id="setAction" prefWidth="150.0" promptText="Włącz klimatyzację">
+                                                   <HBox.margin>
+                                                      <Insets left="5.0" right="15.0" />
+                                                   </HBox.margin>
+                                                </ComboBox>
+                                             </children>
+                                             <VBox.margin>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                             </VBox.margin>
+                                          </HBox>
+                                          <Button mnemonicParsing="false" onAction="#clicButton" prefHeight="25.0" prefWidth="126.0" text="Wyślij żądanie" />
                                        </children>
                                     </VBox>
                                  </children>
@@ -161,7 +221,10 @@
           </Tab>
           <Tab text="Woda">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TextField layoutX="143.0" layoutY="25.0" />
+                     </children></AnchorPane>
             </content>
           </Tab>
             <Tab text="Zabezpieczenia">
@@ -172,10 +235,4 @@
         </tabs>
       </TabPane>
    </center>
-   <bottom>
-      <Button mnemonicParsing="false" onAction="#sendInit" prefHeight="25.0" prefWidth="150.0" text="Test Connection" BorderPane.alignment="TOP_LEFT">
-         <BorderPane.margin>
-            <Insets bottom="10.0" left="10.0" top="10.0" />
-         </BorderPane.margin></Button>
-   </bottom>
 </BorderPane>
