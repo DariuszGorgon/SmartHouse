@@ -45,8 +45,9 @@ public class LoginWindow {
          portNum = 8888;
          connectClient.port = portNum;
          connectClient.openWindow = false;
-         connectClient.sendMes("CONNECT");
+         //"$KG" +0xFF+0x52+0x53+0 -- ramka gdzie 0x2A to "CONNECT"
 
+         connectClient.sendMes("$KG" +"\u002A"+"RS"+"\u0000");
          String sessionID = authorize(connectClient.reciveMessage);
          if (sessionID != null) {
 
@@ -65,7 +66,7 @@ public class LoginWindow {
 
     private String authorize(String compare) {
         return
-                "CONNECT_OK\n".equals(compare)
+                "CONNECT_OK".equals(compare)
                         ? generateSessionID()
                         : null;
     }

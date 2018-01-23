@@ -1,30 +1,42 @@
 package sample;
 
+import java.awt.*;
+
 public class Action {
 
-    public String name1;
-    public float value1;
-    public String threshold1;
+    public int command;
+    public String value1;
+    public int valueSize;
     public String Setting1;
+    public int commandThs;
 
     Action (String name, float value, String threshold, String setting) {
         switch (name) {
             case "Temp. 1":
                 if (threshold.matches("Próg górny")) {
-                    name1 = "temp_1_threshold_high\n";
-                    threshold1 = "temp_1_threshold_high_action\n";
+                    command = 0x2D; // nazwa parametru
+                    commandThs = 0x2E;
                 } else {
-                    name1 = "temp_1_threshold_low\n";
-                    threshold1 = "temp_1_threshold_low_action\n";
+                    command = 0x2F;
+                    commandThs = 0x30;
                 }
                 break;
             case "Temp. 2":
                 if (threshold.matches("Próg górny")) {
-                    name1 = "temp_2_threshold_high\n";
-                    threshold1 = "temp_2_threshold_high_action\n";
+                    command = 0x33;
+                    commandThs = 0x34;
                 } else {
-                    name1 = "temp_2_threshold_low\n";
-                    threshold1 = "temp_2_threshold_low_action\n";
+                    command = 0x35;
+                    commandThs = 0x36;
+                }
+                break;
+            case "Lux":
+                if (threshold.matches("Próg górny")) {
+                    command = 0x39;
+                    commandThs = 0x3A;
+                } else {
+                    command = 0x3B;
+                    commandThs = 0x3C;
                 }
                 break;
         }
@@ -42,41 +54,53 @@ public class Action {
                 Setting1 = "4";
                 break;
         }
-        value1 = value;
-        //System.out.println(name1+"="+value+"\n"+threshold1+"="+Setting1);
+
+        value1 = Float.toString(value); //wartość float zmieniona na Stringa
+        valueSize =value1.length(); //długość stringa
+        //System.out.println(command+"="+value+"\n"+valueSize+"="+Setting1);
+
     }
 
-    public void setName(String name) {
-        this.name1 = name;
+    public String getThres(){
+        String packetRet = new String( "$KG" +(char)command+"WI"+valueSize+value1);
+        return packetRet;
     }
-
-    public void setValue(int value) {
-        this.value1 = value;
+    public String getSett(){
+        String packetRet = new String( "$KG" +(char)commandThs+"WI"+valueSize+value1);// do zmienienia wartości Settingów
+        return packetRet;
     }
-
-    public void setThreshold(String threshold) {
-        this.threshold1 = threshold;
-    }
-
-    public void setSetting(String setting) {
-        Setting1 = setting;
-    }
-
-    public String getName() {
-        return name1;
-    }
-
-    public float getValue() {
-        return value1;
-    }
-
-    public String getThreshold() {
-        return threshold1;
-    }
-
-    public String getSetting() {
-        return Setting1;
-    }
+//
+//    public void setName(String name) {
+//        this.command = name;
+//    }
+//
+//    public void setValue(int value) {
+//        this.value1 = value;
+//    }
+//
+//    public void setThreshold(String threshold) {
+//        this.valueSize = threshold;
+//    }
+//
+//    public void setSetting(String setting) {
+//        Setting1 = setting;
+//    }
+//
+//    public String getName() {
+//        return command;
+//    }
+//
+//    public float getValue() {
+//        return value1;
+//    }
+//
+//    public String getThreshold() {
+//        return valueSize;
+//    }
+//
+//    public String getSetting() {
+//        return Setting1;
+//    }
 
 }
 

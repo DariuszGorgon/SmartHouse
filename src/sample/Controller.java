@@ -1,5 +1,6 @@
 package sample;
 
+import eu.hansolo.enzo.led.Led;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -31,9 +32,16 @@ public class Controller implements MyInterface {
     public ComboBox<String> thresholdValue;
     public ComboBox<String> setAction;
 
-    private List<String> paramList;
-    private List<String> threshList;
-    private List<String> actionList;
+    //Elementy od wyświetlania tresholdów.
+    public Label lux;
+    public Led led2up;
+    public Label tempTres2up;
+    public Led led2down;
+    public Label tempTres2down;
+    public Led led1up;
+    public Label tempTres1up;
+    public Led led1Down;
+    public Label tempTres1down;
 
     private Action stringAction;
 
@@ -61,35 +69,27 @@ public class Controller implements MyInterface {
         myInterface = this;
         stopThread = true;
 
-        paramList = new ArrayList<>();
+
+        List<String> paramList = new ArrayList<>();
         paramList.add("Temp. 1");
         paramList.add("Temp. 2");
         setParam.getItems().addAll(paramList);
 
 
-        threshList = new ArrayList<>();
+        List<String> threshList = new ArrayList<>();
         threshList.add("Próg górny");
         threshList.add("Próg dolny");
         thresholdValue.getItems().addAll(threshList);
 
-        actionList = new ArrayList<>();
+        List<String> actionList = new ArrayList<>();
         actionList.add("Włącz Klimatyzację");
         actionList.add("Otwórz okno");
         actionList.add("inne takie");
         setAction.getItems().addAll(actionList);
 
         }
-    @Override
-    public void editListwiev(String loggin) {
-        eventsListView.setCellFactory(TextFieldListCell.forListView());
-        Platform.runLater(() -> eventsListView.getItems().add(loggin));
-    }
-    public void setTemp1(String checkT1) {
-        Platform.runLater(() -> temp1.setText(checkT1));
-    }
-    public void setTemp2(String checkT2) {
-        Platform.runLater(() -> temp2.setText(checkT2));
-    }
+
+
     public void sendInit(ActionEvent actionEvent) throws IOException {
 
         String newAdress = LoginWindow.getInstance().ipAddres;
@@ -98,28 +98,28 @@ public class Controller implements MyInterface {
         Client client = new Client(newAdress,myInterface);
         client.openWindow = true;
         client.port =newPort;
-        client.sendMes("LEDON");
+        client.sendMes("$KG" +0xFF+0x52+0x53+0);
         //Tworzenie nowego wątku odpowiedzialnego za ciągłe odczytywanie temperatuty
         Client tempClient = new Client(newAdress,myInterface);
         tempClient.openWindow = true;
         tempClient.port = newPort;
-        Thread newThread = new Thread(()->
-        {
-            while(stopThread){
-            try {
-                tempClient.sendMes("TEMP_1");
-                tempClient.sendMes("TEMP_2");
-                sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            }
-        });
-        newThread.setName("Temperature Thread");
-        newThread.start();
-        log.info("konsola");
+//        Thread newThread = new Thread(()->
+//        {
+//            while(stopThread){
+//            try {
+//                tempClient.sendMes("TEMP_1");
+//                tempClient.sendMes("TEMP_2");
+//                sleep(1000);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//            }
+//        });
+//        newThread.setName("Temperature Thread");
+//        newThread.start();
+//        log.info("konsola");
 
     }
 
@@ -145,11 +145,60 @@ public class Controller implements MyInterface {
         }else{
             float value = Float.parseFloat(setTempVar.getText());
             stringAction = new Action(name,value,threshold,setting);
+//            String message = stringAction.getName() +
+//                    "=" + Float.toString(stringAction.getValue()) + "\n" + stringAction.getThreshold() + "=" + stringAction.getSetting();
+//            System.out.println(message);
+//            if(stringAction.getValue()==11){
+//                setLed2up(true);
+//            }
 
-
-            String message = stringAction.getName() +
-                    "=" + Float.toString(stringAction.getValue()) + "\n" + stringAction.getThreshold() + "=" + stringAction.getSetting();
-            System.out.println(message);
         }
+    }
+    @Override
+    public void editListwiev(String loggin) {
+        eventsListView.setCellFactory(TextFieldListCell.forListView());
+        Platform.runLater(() -> eventsListView.getItems().add(loggin));
+    }
+    public void setTemp1(String checkT1) {
+        Platform.runLater(() -> temp1.setText(checkT1));
+    }
+    public void setTemp2(String checkT2) {
+        Platform.runLater(() -> temp2.setText(checkT2));
+    }
+
+    public void setLux(String lux1) {
+        Platform.runLater(() -> lux.setText(lux1));
+    }
+
+    public void setLed2up(boolean check) {
+        Platform.runLater(() -> led2up.setOn(check));
+    }
+
+    public void setTempTres2up(String checkThres) {
+        Platform.runLater(() -> tempTres2up.setText(checkThres));
+    }
+
+    public void setLed2down(boolean check) {
+        Platform.runLater(() -> led2down.setOn(check));
+    }
+
+    public void setTempTres2down(String checkThres) {
+        Platform.runLater(() -> tempTres2down.setText(checkThres));
+    }
+
+    public void setLed1up(boolean check) {
+        Platform.runLater(() -> led1up.setOn(check));
+    }
+
+    public void setTempTres1up(String checkThres) {
+        Platform.runLater(() -> tempTres1up.setText(checkThres));
+    }
+
+    public void setLed1Down(boolean check) {
+        Platform.runLater(() -> led1Down.setOn(check));
+    }
+
+    public void setTempTres1down(String checkThres) {
+        Platform.runLater(() -> tempTres1down.setText(checkThres));
     }
 }
