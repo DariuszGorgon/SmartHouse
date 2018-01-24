@@ -9,6 +9,9 @@ public interface MyInterface {
     void setTemp1(String checkT1);
     void setTemp2(String checkT2);
     void setLux(String lux1);
+    String getTemp2();
+    String getTemp1();
+
     void setLed2up(boolean check);
     void setTempTres2up(String checkThres);
     void setLed2down(boolean check);
@@ -17,6 +20,12 @@ public interface MyInterface {
     void setTempTres1up(String checkThres);
     void setLed1Down(boolean check);
     void setTempTres1down(String checkThres);
+    //gettery
+    String getTempTres2up() ;
+    String getTempTres2down() ;
+    String getTempTres1up() ;
+    String getTempTres1down() ;
+
 
 
 

@@ -61,13 +61,17 @@ public class Controller implements MyInterface {
     private final Lock readLock = rwLock.readLock();
     static Logger log = Logger.getLogger(Controller.class.getName());
 
-
+    //parametry o Adresie oraz porcie
+    String newAdress;
+    int newPort;
     @FXML
     public void initialize()
     {
         eventsListView.setPlaceholder(new Label("Brak zdarzeń"));
         myInterface = this;
         stopThread = true;
+        newAdress = LoginWindow.getInstance().ipAddres;
+        newPort = LoginWindow.getInstance().portNum;
 
         List<String> paramList = new ArrayList<>();
         paramList.add("Temp. 1");
@@ -88,13 +92,12 @@ public class Controller implements MyInterface {
 
     public void sendInit(ActionEvent actionEvent) throws IOException {
 
-        String newAdress = LoginWindow.getInstance().ipAddres;
-        int newPort = LoginWindow.getInstance().portNum;
 
-        Client client = new Client(newAdress,myInterface);
-        client.openWindow = true;
-        client.port =newPort;
-        client.sendMes("$KG" +0xFF+0x52+0x53+0);
+
+//        Client client = new Client(newAdress,myInterface);
+//        client.openWindow = true;
+//        client.port =newPort;
+//        client.sendMes("$KG" +0xFF+0x52+0x53+0);
         //Tworzenie nowego wątku odpowiedzialnego za ciągłe odczytywanie temperatuty
         Client tempClient = new Client(newAdress, myInterface);
         tempClient.openWindow = true;
@@ -104,8 +107,8 @@ public class Controller implements MyInterface {
             while(stopThread){
             try {
                 tempClient.sendMes("$KG"+ (char)0x2C+"RS"+(char)0x00);
-               // tempClient.sendMes("TEMP_2");
-                sleep(1000);
+               // tempClient.sendMes("$KG"+ (char)0x32+"RS"+(char)0x00);
+                sleep(5000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } catch (IOException e) {
@@ -126,7 +129,7 @@ public class Controller implements MyInterface {
         return instance;
     }
 
-    public void clicButton(ActionEvent actionEvent) {
+    public void clicButton(ActionEvent actionEvent) throws IOException {
 
         String name = setParam.getValue();
         String threshold = thresholdValue.getValue();
@@ -141,6 +144,12 @@ public class Controller implements MyInterface {
         }else{
             float value = Float.parseFloat(setTempVar.getText());
             stringAction = new Action(name,value,threshold,setting);
+            Client commandThres = new Client(newAdress,myInterface);
+            commandThres.port = newPort;
+            commandThres.openWindow =true;
+
+            commandThres.sendMes(stringAction.getThres());
+
 //            String message = stringAction.getName() +
 //                    "=" + Float.toString(stringAction.getValue()) + "\n" + stringAction.getThreshold() + "=" + stringAction.getSetting();
 //            System.out.println(message);
@@ -160,6 +169,12 @@ public class Controller implements MyInterface {
     }
     public void setTemp2(String checkT2) {
         Platform.runLater(() -> temp2.setText(checkT2));
+    }
+    public String getTemp2() {
+        return temp2.getText();
+    }
+    public String getTemp1() {
+        return temp1.getText();
     }
 
     public void setLux(String lux1) {
@@ -196,5 +211,21 @@ public class Controller implements MyInterface {
 
     public void setTempTres1down(String checkThres) {
         Platform.runLater(() -> tempTres1down.setText(checkThres));
+    }
+
+    public String getTempTres2up() {
+        return tempTres2up.getText();
+    }
+
+    public String getTempTres2down() {
+        return tempTres2down.getText();
+    }
+
+    public String getTempTres1up() {
+        return tempTres1up.getText();
+    }
+
+    public String getTempTres1down() {
+        return tempTres1down.getText();
     }
 }

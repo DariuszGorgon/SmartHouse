@@ -66,7 +66,7 @@ public class Client {
             if (openWindow) {
 
                 updateGui.visibleLog(test);
-                updateGui.checkParam(msg.charAt(3),test);
+                updateGui.checkParam(msg,test);
             }
         }catch (IOException e )
         {

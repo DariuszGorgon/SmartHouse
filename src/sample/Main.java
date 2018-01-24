@@ -18,13 +18,17 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
+
         smartStage = primaryStage;
         Parent root = FXMLLoader.load(getClass().getResource("login_window.fxml"));
         smartStage.setTitle("Smart House");
         smartStage.setScene(new Scene(root, 230, 120));
         smartStage.show();
 
-        smartStage.setOnCloseRequest(event -> Controller.getInstance().setStopThread(false));
+
+            smartStage.setOnCloseRequest(event -> Controller.getInstance().setStopThread(false));
+
+
     }
 
 
@@ -34,6 +38,7 @@ public class Main extends Application {
 
     void setSceneSettings() {
         try {
+
             smartStage.setScene(new Scene(FXMLLoader.load(getClass().getResource("sample.fxml")),600,400));
         } catch (IOException e) {
             e.printStackTrace();

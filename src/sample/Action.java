@@ -62,12 +62,10 @@ public class Action {
     }
 
     public String getThres(){
-        String packetRet = new String( "$KG" +(char)command+"WI"+valueSize+value1);
-        return packetRet;
+        return "$KG" + (char) command + "WF" + valueSize + value1;
     }
     public String getSett(){
-        String packetRet = new String( "$KG" +(char)commandThs+"WI"+valueSize+value1);// do zmienienia wartości Settingów
-        return packetRet;
+        return "$KG" + (char) commandThs + "WI" + valueSize + value1;
     }
 //
 //    public void setName(String name) {
