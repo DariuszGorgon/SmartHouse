@@ -62,7 +62,7 @@ public class Action {
     }
 
     public String getThres(){
-        return "$KG" + (char) command + "WF" + valueSize + value1;
+        return "$KG" + (char) command + "WF" + (char)valueSize + value1;
     }
     public String getSett(){
         return "$KG" + (char) commandThs + "WI" + valueSize + value1;

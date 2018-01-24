@@ -48,10 +48,14 @@ public class Client {
     public void sendMes (String msg) throws  IOException{
 
         try {
+            updateGui = new UpdateGui(myInterface);
             message = msg.getBytes();
             System.out.println(message);
             outputStream = new DatagramPacket(message, message.length, inetAddress,port);
             newSocket.send(outputStream);
+            if (openWindow) {
+                updateGui.visibleLog(msg,1);
+            }
 
             inputStream = new DatagramPacket(messageIn, messageIn.length);
             newSocket.receive(inputStream);
@@ -61,18 +65,18 @@ public class Client {
 
             String test = received.startsWith("$KG") ? received.substring(7) : "Problem z Połączeniem";
             reciveMessage =test;
-            updateGui = new UpdateGui(myInterface);
+
 
             if (openWindow) {
 
-                updateGui.visibleLog(test);
+                updateGui.visibleLog(received,2);
                 updateGui.checkParam(msg,test);
             }
         }catch (IOException e )
         {
             System.out.println(e);
             if (openWindow) {
-                updateGui.visibleLog(e.toString());
+                updateGui.visibleLog(e.toString(),3);
             }
         }
     }

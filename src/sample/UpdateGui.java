@@ -1,5 +1,9 @@
 package sample;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class UpdateGui {
 
     //interfesy
@@ -12,7 +16,7 @@ public class UpdateGui {
     }
 
     public void checkParam(String message, String setMessage) {
-        String tempValue = setMessage.substring(0, 6);
+        String tempValue = setMessage.substring(0);
         String thresValue = message.substring(7);
         switch (message.charAt(3)) {
             //Wartości dla Temp1
@@ -45,7 +49,31 @@ public class UpdateGui {
 
     }
 
-    public void visibleLog(String message) {
-        this.testInterface.editListwiev(message);
+    public void visibleLog(String message,int type) {
+
+        Date today = new Date();
+        DateFormat todayform = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        String wart = new String();
+        switch (type){
+            case 1:
+                wart = (message.substring(4, 5).equals("W")) ? "zapisu" : "odczytu";
+
+                this.testInterface.editListwiev(todayform.format(today) +": Wysłano zapytanie "+wart+" parametru. " + message.substring(3,5)+" "+
+                message.substring(7));
+                break;
+            case 2:
+
+                this.testInterface.editListwiev(todayform.format(today) +": Odebrano wiadomość z urządzenia. " + message.substring(3,4)+
+                        message.substring(7));
+                break;
+            case 3:
+                wart = "!!!Bląd!!!";
+                this.testInterface.editListwiev(todayform.format(today) +": "+wart + message);
+                break;
+
+        }
+
+
+
     }
 }
