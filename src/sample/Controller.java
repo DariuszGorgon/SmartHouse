@@ -69,12 +69,10 @@ public class Controller implements MyInterface {
         myInterface = this;
         stopThread = true;
 
-
         List<String> paramList = new ArrayList<>();
         paramList.add("Temp. 1");
         paramList.add("Temp. 2");
         setParam.getItems().addAll(paramList);
-
 
         List<String> threshList = new ArrayList<>();
         threshList.add("Próg górny");
@@ -86,40 +84,38 @@ public class Controller implements MyInterface {
         actionList.add("Otwórz okno");
         actionList.add("inne takie");
         setAction.getItems().addAll(actionList);
-
         }
-
 
     public void sendInit(ActionEvent actionEvent) throws IOException {
 
         String newAdress = LoginWindow.getInstance().ipAddres;
         int newPort = LoginWindow.getInstance().portNum;
-        //
+
         Client client = new Client(newAdress,myInterface);
         client.openWindow = true;
         client.port =newPort;
         client.sendMes("$KG" +0xFF+0x52+0x53+0);
         //Tworzenie nowego wątku odpowiedzialnego za ciągłe odczytywanie temperatuty
-        Client tempClient = new Client(newAdress,myInterface);
+        Client tempClient = new Client(newAdress, myInterface);
         tempClient.openWindow = true;
         tempClient.port = newPort;
-//        Thread newThread = new Thread(()->
-//        {
-//            while(stopThread){
-//            try {
-//                tempClient.sendMes("TEMP_1");
-//                tempClient.sendMes("TEMP_2");
-//                sleep(1000);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//            }
-//        });
-//        newThread.setName("Temperature Thread");
-//        newThread.start();
-//        log.info("konsola");
+        Thread newThread = new Thread(()->
+        {
+            while(stopThread){
+            try {
+                tempClient.sendMes("$KG"+ (char)0x2C+"RS"+(char)0x00);
+               // tempClient.sendMes("TEMP_2");
+                sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            }
+        });
+        newThread.setName("Temperature Thread");
+        newThread.start();
+        log.info("konsola");
 
     }
 

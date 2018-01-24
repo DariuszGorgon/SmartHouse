@@ -23,10 +23,13 @@ public class Client {
 
     private byte [] message;
     byte [] messageIn = new byte[40];
+    UpdateGui updateGui;
 
      Client(String Addr,MyInterface myInterface) throws IOException {
 
         this.myInterface = myInterface;
+         //myInterface =this;
+
         try {
             newSocket = new DatagramSocket();
             inetAddress = InetAddress.getByName(Addr);
@@ -58,34 +61,21 @@ public class Client {
 
             String test = received.startsWith("$KG") ? received.substring(7) : "Problem z Połączeniem";
             reciveMessage =test;
+            updateGui = new UpdateGui(myInterface);
 
             if (openWindow) {
 
-
-                this.myInterface.editListwiev(test);
-
-                switch (msg){
-                    case "TEMP_1":
-                        this.myInterface.setTemp1(received);
-                        //platform.runLater(10);
-                        break;
-                    case "TEMP_2":
-                        this.myInterface.setTemp2(received);
-                        break;
-                }
-                // case lub if który wpisuje w odpowiednie pola informacje z recivera
-
+                updateGui.visibleLog(test);
+                updateGui.checkParam(msg.charAt(3),test);
             }
-
         }catch (IOException e )
         {
             System.out.println(e);
             if (openWindow) {
-                this.myInterface.editListwiev(e.toString());
+                updateGui.visibleLog(e.toString());
             }
         }
     }
-
     public void connectSocket () {
         newSocket.connect(inetAddress,port);
     }
