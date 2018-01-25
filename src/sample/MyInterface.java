@@ -9,8 +9,10 @@ public interface MyInterface {
     void setTemp1(String checkT1);
     void setTemp2(String checkT2);
     void setLux(String lux1);
+    void setLuxLed(boolean check);
     String getTemp2();
     String getTemp1();
+    void setWaterLed(boolean check);
 
     void setLed2up(boolean check);
     void setTempTres2up(String checkThres);

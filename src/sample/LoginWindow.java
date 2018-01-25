@@ -37,29 +37,37 @@ public class LoginWindow {
      @FXML
      void ConnectButton(ActionEvent actionEvent) throws IOException {
 
-        // Client connectClient = new Client(user.getText(),checkConnect);
-         //ipAddres = user.getText();
-        // portNum = Integer.parseInt(password.getText());
-         Client connectClient = new Client("192.168.0.14",checkConnect);
-         ipAddres = "192.168.0.14";
-         portNum = 8888;
-         connectClient.port = portNum;
-         connectClient.openWindow = false;
-         //"$KG" +0xFF+0x52+0x53+0 -- ramka gdzie 0x2A to "CONNECT"
-
-         connectClient.sendMes("$KG" +"\u002A"+"RS"+"\u0000");
-         String sessionID = authorize(connectClient.reciveMessage);
-         if (sessionID != null) {
-
-             Main.getInstance().setSceneSettings();
-
-         } else {
+         if (!user.getText().matches("[0-9]*.[0-9]*.[0-9]*.[0-9]*")| !password.getText().matches("[0-9]*")) {
              Alert alert = new Alert(Alert.AlertType.WARNING);
-             alert.setTitle("SmartHouse");
-             alert.setHeaderText("Błąd połączenia");
-             alert.setContentText("Sprawdź czy podałeś dobry adres i port");
+             alert.setTitle("Uwaga!");
+             alert.setHeaderText("Ip lub port ma zły format");
+             alert.setContentText("Sprawdź czy podałeś dobre wartości");
              alert.showAndWait();
+         } else {
+             // Client connectClient = new Client(user.getText(),checkConnect);
+             //ipAddres = user.getText();
+             // portNum = Integer.parseInt(password.getText());
+             Client connectClient = new Client("192.168.0.14", checkConnect);
+             ipAddres = "192.168.0.14";
+             portNum = 8888;
+             connectClient.port = portNum;
+             connectClient.openWindow = false;
+             //"$KG" +0xFF+0x52+0x53+0 -- ramka gdzie 0x2A to "CONNECT"
 
+             connectClient.sendMes("$KG" + "\u002A" + "RS" + "\u0000");
+             String sessionID = authorize(connectClient.reciveMessage);
+             if (sessionID != null) {
+
+                 Main.getInstance().setSceneSettings();
+
+             } else {
+                 Alert alert = new Alert(Alert.AlertType.WARNING);
+                 alert.setTitle("SmartHouse");
+                 alert.setHeaderText("Błąd połączenia");
+                 alert.setContentText("Sprawdź czy podałeś dobry adres i port");
+                 alert.showAndWait();
+
+             }
          }
 
     }
