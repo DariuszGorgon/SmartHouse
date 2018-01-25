@@ -7,9 +7,10 @@ public class Action {
     private int command;
     private String value1;
     private int valueSize;
-    private int takeSetting;
+    public int takeSetting;
     public int takeStting1;
     public int commandThs;
+    private String flo_int;
     //Akcje zdefiniowane
     private int action1=0x5C;
     private int action2=0x5D;
@@ -18,6 +19,7 @@ public class Action {
     Action (String name, float value, String threshold, String setting, String setting1) {
         switch (name) {
             case "Temp. 1":
+                flo_int ="F";
                 if (threshold.matches("Próg górny")) {
                     command = 0x2D; // nazwa parametru
                     commandThs = 0x2E;
@@ -27,6 +29,7 @@ public class Action {
                 }
                 break;
             case "Temp. 2":
+                flo_int ="F";
                 if (threshold.matches("Próg górny")) {
                     command = 0x33;
                     commandThs = 0x34;
@@ -36,6 +39,7 @@ public class Action {
                 }
                 break;
             case "Lux":
+                flo_int ="I";
                 if (threshold.matches("Próg górny")) {
                     command = 0x39;
                     commandThs = 0x3A;
@@ -52,16 +56,16 @@ public class Action {
                 case "Wyłącz Klimatyzację":
                     takeSetting = 0x51;
                     break;
-                case "Otwórz Okno":
+                case "Włącz Ogrzewanie":
                     takeSetting = 0x52;
                     break;
-                case "Zamknij Okno":
+                case "Wyłącz Ogrzewanie":
                     takeSetting = 0x53;
                     break;
-                case "Włącz Ogrzewanie":
+                case "Otwórz Okno":
                     takeSetting = 0x54;
                     break;
-                case "Wyłącz Ogrzewanie":
+                case "Zamknij Okno":
                     takeSetting = 0x55;
                     break;
         }
@@ -78,13 +82,14 @@ public class Action {
             case "Wyłącz Pompę":
                 takeStting1 = 0x59;
                 break;
-            case "Zamknij Garaż":
+            case "Otwórz Garaż":
                 takeStting1 = 0x5A;
                 break;
-            case "Otwórz Garaż":
+            case "Zamknij Garaż":
                 takeStting1 = 0x5B;
                 break;
         }
+
 
         value1 = Float.toString(value); //wartość float zmieniona na Stringa
         valueSize =value1.length(); //długość stringa
@@ -94,7 +99,7 @@ public class Action {
     }
 
     public String getThres(){
-        return "$KG" + (char) command + "WF" + (char)valueSize + value1;
+        return "$KG" + (char) command + "W"+ flo_int + (char)valueSize + value1;
     }
     public String getSett(){
         return "$KG" + (char) commandThs + "WI" + (char)2 + (char)action1+(char)takeSetting;
@@ -102,38 +107,7 @@ public class Action {
     public String getSett1(){
         return "$KG" + (char) commandThs + "WI" + (char)2  + (char)action2+(char)takeStting1;
     }
-//
-//    public void setName(String name) {
-//        this.command = name;
-//    }
-//
-//    public void setValue(int value) {
-//        this.value1 = value;
-//    }
-//
-//    public void setThreshold(String threshold) {
-//        this.valueSize = threshold;
-//    }
-//
-//    public void setSetting(String setting) {
-//        Setting1 = setting;
-//    }
-//
-//    public String getName() {
-//        return command;
-//    }
-//
-//    public float getValue() {
-//        return value1;
-//    }
-//
-//    public String getThreshold() {
-//        return valueSize;
-//    }
-//
-//    public String getSetting() {
-//        return Setting1;
-//    }
+
 
 }
 

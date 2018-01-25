@@ -96,7 +96,7 @@ public class Controller implements MyInterface {
         actionList.add("Włącz Klimatyzację");
         actionList.add("Wyłącz Klimatyzację");
         actionList.add("Włącz Ogrzewanie");
-        actionList.add("Włącz Ogrzewanie");
+        actionList.add("Wyłącz Ogrzewanie");
         actionList.add("Otwórz Okno");
         actionList.add("Zamknij Okno");
         setAction.getItems().addAll(actionList);
@@ -105,7 +105,7 @@ public class Controller implements MyInterface {
         List<String> actionList1 = new ArrayList<>();
         actionList1.add("Zapal Swiatło");
         actionList1.add("Wyłącz Swiatło");
-        actionList1.add("Włącz Pompę ");
+        actionList1.add("Włącz Pompę");
         actionList1.add("Wyłącz Pompę");
         actionList1.add("Otwórz Garaż");
         actionList1.add("Zamknij Garaż");
