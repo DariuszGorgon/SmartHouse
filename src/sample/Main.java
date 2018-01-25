@@ -24,18 +24,12 @@ public class Main extends Application {
         smartStage.setTitle("Smart House");
         smartStage.setScene(new Scene(root, 230, 120));
         smartStage.show();
-
-
             smartStage.setOnCloseRequest(event -> Controller.getInstance().setStopThread(false));
-
-
     }
-
 
     public static void main(String[] args) {
         launch(args);
     }
-
     void setSceneSettings() {
         try {
 
@@ -44,7 +38,6 @@ public class Main extends Application {
             e.printStackTrace();
         }
     }
-
     public Main() {
         instance = this;
     }

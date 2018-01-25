@@ -126,7 +126,7 @@ public class Controller implements MyInterface {
             startClient.sendMes("$KG"+ (char)0X39+"RF"+(char)0x00);
             startClient.sendMes("$KG"+ (char)0X3B+"RF"+(char)0x00);
             startClient.sendMes("$KG"+ (char)0X37+"RI"+(char)0x00);
-            startClient.sendMes("$KG"+ (char)0X2B+"RI"+(char)0x00);
+           // startClient.sendMes("$KG"+ (char)0X2B+"RI"+(char)0x00);
 
             Client tempClient = new Client(newAdress, myInterface);
             tempClient.openWindow = true;
@@ -137,7 +137,7 @@ public class Controller implements MyInterface {
                     try {
                         tempClient.sendMes("$KG"+ (char)0x2C+"RS"+(char)0x00);
                         tempClient.sendMes("$KG"+ (char)0x32+"RS"+(char)0x00);
-                        startClient.sendMes("$KG"+ (char)0X38+"RI"+(char)0x00);
+                        //startClient.sendMes("$KG"+ (char)0X38+"RI"+(char)0x00);
                         sleep(5000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
@@ -148,6 +148,25 @@ public class Controller implements MyInterface {
             });
             newThread.setName("Temperature Thread");
             newThread.start();
+
+            Client luxClient = new Client(newAdress, myInterface);
+            luxClient.openWindow = true;
+            luxClient.port = newPort;
+            Thread luxThread = new Thread(()->
+            {
+                while(stopThread){
+                    try {
+                        startClient.sendMes("$KG"+ (char)0X38+"RI"+(char)0x00);
+                        sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+            luxThread.setName("Lux Thread");
+            luxThread.start();
             log.info("konsola");
 
         }
