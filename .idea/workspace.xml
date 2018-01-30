@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c632a8c6-43be-4a71-9591-675616f252d7" name="Default" comment="">
+    <list default="true" id="c632a8c6-43be-4a71-9591-675616f252d7" name="Default" comment="Czyszczenie kodu">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/src/sample/LoginWindow.java" afterPath="$PROJECT_DIR$/src/sample/LoginWindow.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -84,11 +83,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Client.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Client.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/sample/Client.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1360">
-              <caret line="80" column="9" lean-forward="false" selection-start-line="80" selection-start-column="9" selection-end-line="80" selection-end-column="9" />
+            <state relative-caret-position="1054">
+              <caret line="62" column="41" lean-forward="true" selection-start-line="62" selection-start-column="41" selection-end-line="62" selection-end-column="41" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#2275#2276#0" expanded="true" />
@@ -129,7 +128,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="LoginWindow.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="LoginWindow.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/sample/LoginWindow.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="765">
@@ -471,7 +470,7 @@
       <workItem from="1516621782834" duration="21834000" />
       <workItem from="1516719903988" duration="81217000" />
       <workItem from="1516882259749" duration="621000" />
-      <workItem from="1517334738425" duration="537000" />
+      <workItem from="1517334738425" duration="1808000" />
     </task>
     <task id="LOCAL-00001" summary="New Branch for comunication file">
       <created>1513197413534</created>
@@ -578,11 +577,18 @@
       <option name="project" value="LOCAL" />
       <updated>1516874561789</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="Czyszczenie kodu">
+      <created>1517335287853</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1517335287854</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="184296000" />
+    <option name="totallyTimeSpent" value="185567000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -593,7 +599,7 @@
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32919955" sideWeight="0.503125" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3280507" sideWeight="0.503125" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24405706" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -668,7 +674,8 @@
     <MESSAGE value="dodanie logów z datami" />
     <MESSAGE value="asdsdasfasfs" />
     <MESSAGE value="qqqq" />
-    <option name="LAST_COMMIT_MESSAGE" value="qqqq" />
+    <MESSAGE value="Czyszczenie kodu" />
+    <option name="LAST_COMMIT_MESSAGE" value="Czyszczenie kodu" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1387,18 +1394,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/Client.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1360">
-          <caret line="80" column="9" lean-forward="false" selection-start-line="80" selection-start-column="9" selection-end-line="80" selection-end-column="9" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2275#2276#0" expanded="true" />
-            <element signature="e#2326#2327#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/Controller.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2737">
@@ -1478,6 +1473,18 @@
             <element signature="e#2573#2574#0" expanded="true" />
             <element signature="e#2612#2613#0" expanded="true" />
             <element signature="e#2643#2644#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/Client.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1054">
+          <caret line="62" column="41" lean-forward="true" selection-start-line="62" selection-start-column="41" selection-end-line="62" selection-end-column="41" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2275#2276#0" expanded="true" />
+            <element signature="e#2326#2327#0" expanded="true" />
           </folding>
         </state>
       </provider>
