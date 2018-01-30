@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import eu.hansolo.enzo.led.Led?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
@@ -42,7 +42,7 @@
       </MenuBar>
    </top>
    <center>
-      <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+      <TabPane tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
         <tabs>
             <Tab text="Zdarzenia">
               <content>
@@ -52,24 +52,14 @@
                            <children>
                               <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="346.0" prefWidth="605.0" spacing="5.0">
                                  <children>
-                                    <TableView fx:id="eventsTableView" nodeOrientation="LEFT_TO_RIGHT" prefHeight="307.0" prefWidth="388.0">
-                                      <columns>
-                                        <TableColumn prefWidth="117.0" text="Data" />
-                                        <TableColumn prefWidth="315.0" text="Opis" />
-                                      </columns>
+                                    <ListView fx:id="eventsListView" prefHeight="333.0" prefWidth="540.0">
                                        <VBox.margin>
-                                          <Insets top="30.0" />
+                                          <Insets top="20.0" />
                                        </VBox.margin>
-                                    </TableView>
-                                    <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                                    </ListView>
+                                    <HBox prefHeight="87.0" prefWidth="540.0" spacing="10.0">
                                        <children>
-                                          <TextField alignment="CENTER" promptText="Filtruj" />
-                                          <Button mnemonicParsing="false" text="Filtruj" />
-                                          <HBox alignment="TOP_RIGHT" prefHeight="52.0" prefWidth="326.0">
-                                             <children>
-                                                <Button alignment="CENTER_RIGHT" mnemonicParsing="false" text="Wyczyść wszystko" />
-                                             </children>
-                                          </HBox>
+                                          <HBox alignment="TOP_RIGHT" prefHeight="60.0" prefWidth="327.0" />
                                        </children>
                                     </HBox>
                                  </children>
@@ -85,18 +75,18 @@
             </Tab>
           <Tab text="Temperatura">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <AnchorPane nodeOrientation="LEFT_TO_RIGHT">
                      <children>
-                        <VBox alignment="CENTER" prefHeight="357.0" prefWidth="600.0">
+                        <VBox alignment="CENTER" prefHeight="346.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <HBox alignment="CENTER" prefHeight="42.0" prefWidth="274.0">
+                              <HBox alignment="CENTER" prefHeight="50.0" VBox.vgrow="ALWAYS">
                                  <children>
                                     <Label text="Temperatura 1: " textAlignment="CENTER">
                                        <font>
                                           <Font name="Arial Black" size="19.0" />
                                        </font>
                                     </Label>
-                                    <Label text="23">
+                                    <Label fx:id="temp1" prefHeight="50.0" prefWidth="247.0" text="10">
                                        <font>
                                           <Font name="LCD" size="38.0" />
                                        </font>
@@ -107,18 +97,24 @@
                                        </font>
                                     </Label>
                                  </children>
+                                 <VBox.margin>
+                                    <Insets top="10.0" />
+                                 </VBox.margin>
                               </HBox>
-                              <HBox alignment="CENTER" prefHeight="58.0" prefWidth="274.0">
+                              <HBox alignment="CENTER" prefHeight="45.0">
                                  <children>
                                     <Label text="Temperatura 2: ">
                                        <font>
                                           <Font name="Arial Black" size="19.0" />
                                        </font>
                                     </Label>
-                                    <Label text="10">
+                                    <Label fx:id="temp2" prefHeight="50.0" prefWidth="248.0" text="10">
                                        <font>
                                           <Font name="LCD" size="37.0" />
                                        </font>
+                                       <HBox.margin>
+                                          <Insets />
+                                       </HBox.margin>
                                     </Label>
                                     <Label text="C">
                                        <font>
@@ -127,37 +123,194 @@
                                     </Label>
                                  </children>
                               </HBox>
+                              <HBox>
+                                 <children>
+                                    <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" text="Dolny próg temp.1">
+                                       <font>
+                                          <Font name="Arial Black" size="12.0" />
+                                       </font>
+                                       <padding>
+                                          <Insets left="5.0" right="5.0" />
+                                       </padding>
+                                    </Label>
+                                    <Region HBox.hgrow="ALWAYS" />
+                                    <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="10.0" layoutY="10.0" text="Górny próg temp.1">
+                                       <font>
+                                          <Font name="Arial Black" size="12.0" />
+                                       </font>
+                                       <padding>
+                                          <Insets left="5.0" right="5.0" />
+                                       </padding>
+                                    </Label>
+                                    <Region layoutX="160.0" layoutY="15.0" HBox.hgrow="ALWAYS" />
+                                    <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" text="Dolny próg temp.2">
+                                       <font>
+                                          <Font name="Arial Black" size="12.0" />
+                                       </font>
+                                       <padding>
+                                          <Insets left="5.0" right="5.0" />
+                                       </padding>
+                                    </Label>
+                                    <Region layoutX="310.0" layoutY="15.0" HBox.hgrow="ALWAYS" />
+                                    <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" text="Górny próg temp.2">
+                                       <font>
+                                          <Font name="Arial Black" size="12.0" />
+                                       </font>
+                                       <padding>
+                                          <Insets left="5.0" right="5.0" />
+                                       </padding>
+                                    </Label>
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                                 <VBox.margin>
+                                    <Insets left="5.0" right="5.0" />
+                                 </VBox.margin>
+                              </HBox>
+                              <HBox spacing="10.0">
+                                 <children>
+                                    <Label fx:id="tempTres1down" alignment="CENTER_RIGHT" contentDisplay="RIGHT" text="0.00">
+                                       <padding>
+                                          <Insets left="5.0" right="5.0" />
+                                       </padding>
+                                       <HBox.margin>
+                                          <Insets left="20.0" />
+                                       </HBox.margin>
+                                    </Label>
+                                    <Led fx:id="led1Down" />
+                                    <Region HBox.hgrow="ALWAYS" />
+                                    <Label fx:id="tempTres1up" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="10.0" layoutY="10.0" text="0.00">
+                                       <padding>
+                                          <Insets left="5.0" right="5.0" />
+                                       </padding>
+                                       <HBox.margin>
+                                          <Insets left="45.0" />
+                                       </HBox.margin>
+                                    </Label>
+                                    <Led fx:id="led1up" />
+                                    <Region HBox.hgrow="ALWAYS" />
+                                    <Label fx:id="tempTres2down" alignment="CENTER_RIGHT" contentDisplay="RIGHT" text="0.00">
+                                       <padding>
+                                          <Insets left="5.0" right="5.0" />
+                                       </padding>
+                                       <HBox.margin>
+                                          <Insets left="50.0" />
+                                       </HBox.margin>
+                                    </Label>
+                                    <Led fx:id="led2down" />
+                                    <Region HBox.hgrow="ALWAYS" />
+                                    <Label fx:id="tempTres2up" alignment="CENTER_RIGHT" contentDisplay="RIGHT" text="0.00">
+                                       <padding>
+                                          <Insets left="5.0" right="5.0" />
+                                       </padding>
+                                       <HBox.margin>
+                                          <Insets left="50.0" />
+                                       </HBox.margin>
+                                    </Label>
+                                    <Led fx:id="led2up">
+                                       <HBox.margin>
+                                          <Insets right="10.0" />
+                                       </HBox.margin>
+                                    </Led>
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                                 </padding>
+                                 <VBox.margin>
+                                    <Insets left="15.0" right="35.0" />
+                                 </VBox.margin>
+                              </HBox>
                               <Label text="Konfiguracja zdarzeń">
                                  <font>
                                     <Font name="Arial Black" size="31.0" />
                                  </font>
                               </Label>
-                              <HBox prefHeight="248.0" prefWidth="600.0">
+                              <HBox>
                                  <children>
-                                    <VBox alignment="CENTER" prefHeight="232.0" prefWidth="603.0" spacing="5.0">
+                                    <VBox alignment="CENTER" spacing="5.0" HBox.hgrow="ALWAYS">
                                        <children>
-                                          <Label text="Parametr">
-                                             <font>
-                                                <Font name="Arial Black" size="12.0" />
-                                             </font>
-                                          </Label>
-                                          <ComboBox prefWidth="150.0" promptText="Wybierz parametr" />
-                                          <Label text="Wartość">
-                                             <font>
-                                                <Font name="Arial Black" size="12.0" />
-                                             </font>
-                                          </Label>
-                                          <HBox alignment="CENTER" prefHeight="40.0" prefWidth="600.0">
+                                          <HBox>
                                              <children>
-                                                <TextField prefHeight="25.0" prefWidth="176.0" promptText="Podaj wartość temperatury" />
-                                                <ComboBox prefWidth="150.0" promptText="Mniejsza niż" />
+                                                <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" text="Parametr">
+                                                   <font>
+                                                      <Font name="Arial Black" size="12.0" />
+                                                   </font>
+                                                   <HBox.margin>
+                                                      <Insets left="40.0" top="5.0" />
+                                                   </HBox.margin>
+                                                   <padding>
+                                                      <Insets left="5.0" right="5.0" />
+                                                   </padding>
+                                                </Label>
+                                                <Region HBox.hgrow="ALWAYS" />
+                                                <Label text="Wartość">
+                                                   <font>
+                                                      <Font name="Arial Black" size="12.0" />
+                                                   </font>
+                                                   <HBox.margin>
+                                                      <Insets left="10.0" top="5.0" />
+                                                   </HBox.margin>
+                                                   <padding>
+                                                      <Insets left="5.0" right="5.0" />
+                                                   </padding>
+                                                </Label>
+                                                <Region HBox.hgrow="ALWAYS" />
+                                                <Label text="Akcja">
+                                                   <font>
+                                                      <Font name="Arial Black" size="12.0" />
+                                                   </font>
+                                                   <HBox.margin>
+                                                      <Insets left="19.0" right="60.0" top="5.0" />
+                                                   </HBox.margin>
+                                                   <padding>
+                                                      <Insets left="5.0" right="5.0" />
+                                                   </padding>
+                                                </Label>
                                              </children>
+                                             <VBox.margin>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" />
+                                             </VBox.margin>
                                           </HBox>
-                                          <Label text="Akcja" />
-                                          <ComboBox prefWidth="150.0" promptText="Włącz klimatyzację" />
+                                          <HBox alignment="CENTER_LEFT">
+                                             <children>
+                                                <ComboBox fx:id="setParam" prefHeight="25.0" prefWidth="139.0" promptText="Wybierz parametr">
+                                                   <HBox.margin>
+                                                      <Insets left="10.0" />
+                                                   </HBox.margin>
+                                                </ComboBox>
+                                                <Region prefHeight="55.0" prefWidth="20.0" HBox.hgrow="ALWAYS" />
+                                                <TextField fx:id="setTempVar" prefHeight="25.0" prefWidth="109.0" promptText="Podaj wartość temp.">
+                                                   <HBox.margin>
+                                                      <Insets right="5.0" />
+                                                   </HBox.margin></TextField>
+                                                <ComboBox fx:id="thresholdValue" prefHeight="25.0" prefWidth="118.0" promptText="Wybierz próg">
+                                                   <HBox.margin>
+                                                      <Insets left="5.0" right="5.0" />
+                                                   </HBox.margin></ComboBox>
+                                                <Region HBox.hgrow="ALWAYS" />
+                                                <VBox prefHeight="200.0" prefWidth="130.0">
+                                                   <children>
+                                                      <ComboBox fx:id="setAction" prefHeight="25.0" prefWidth="130.0" promptText="Wybierz akcje">
+                                                         <VBox.margin>
+                                                            <Insets bottom="5.0" />
+                                                         </VBox.margin>
+                                                      </ComboBox>
+                                                      <ComboBox fx:id="setAction1" layoutX="10.0" layoutY="10.0" prefHeight="25.0" prefWidth="138.0" promptText="Wybierz akcje" />
+                                                   </children>
+                                                </VBox>
+                                             </children>
+                                             <VBox.margin>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" />
+                                             </VBox.margin>
+                                          </HBox>
+                                          <Button mnemonicParsing="false" onAction="#clicButton" prefHeight="25.0" prefWidth="126.0" text="Wyślij żądanie" />
                                        </children>
                                     </VBox>
                                  </children>
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" />
+                                 </VBox.margin>
                               </HBox>
                            </children>
                         </VBox>
@@ -165,14 +318,126 @@
                   </AnchorPane>
             </content>
           </Tab>
-          <Tab text="Woda">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-            </content>
-          </Tab>
             <Tab text="Zabezpieczenia">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <VBox prefHeight="346.0" prefWidth="600.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="40.0">
+                           <children>
+                              <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <Label alignment="CENTER" text="Natężenie światła : " textAlignment="CENTER">
+                                       <font>
+                                          <Font name="Arial Black" size="19.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="lux" prefHeight="55.0" prefWidth="134.0" text="10">
+                                       <font>
+                                          <Font name="LCD" size="38.0" />
+                                       </font>
+                                    </Label>
+                                    <Label prefHeight="55.0" prefWidth="59.0" text="lux">
+                                       <font>
+                                          <Font name="LCD" size="38.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                              <HBox>
+                                 <children>
+                                    <Label text="Wartość natężenia światła">
+                                       <font>
+                                          <Font name="Arial Black" size="12.0" />
+                                       </font>
+                                       <HBox.margin>
+                                          <Insets left="35.0" top="10.0" />
+                                       </HBox.margin>
+                                       <padding>
+                                          <Insets left="5.0" right="5.0" />
+                                       </padding>
+                                    </Label>
+                                    <Region HBox.hgrow="ALWAYS" />
+                                    <Label text="Akcja">
+                                       <font>
+                                          <Font name="Arial Black" size="12.0" />
+                                       </font>
+                                       <HBox.margin>
+                                          <Insets left="19.0" right="60.0" top="10.0" />
+                                       </HBox.margin>
+                                       <padding>
+                                          <Insets left="5.0" right="5.0" />
+                                       </padding>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                              <HBox>
+                                 <children>
+                                    <TextField fx:id="setLuxVar" prefHeight="25.0" prefWidth="109.0" promptText="Podaj wartość temp.">
+                                       <HBox.margin>
+                                          <Insets left="10.0" right="5.0" />
+                                       </HBox.margin>
+                                    </TextField>
+                                    <ComboBox fx:id="thresholdLux" prefHeight="25.0" prefWidth="118.0" promptText="Wybierz próg">
+                                       <HBox.margin>
+                                          <Insets left="5.0" right="5.0" />
+                                       </HBox.margin>
+                                    </ComboBox>
+                                    <Region HBox.hgrow="ALWAYS" />
+                                    <ComboBox fx:id="setLuxAction1" prefHeight="25.0" prefWidth="138.0" promptText="Wybierz akcje">
+                                       <HBox.margin>
+                                          <Insets left="5.0" right="15.0" />
+                                       </HBox.margin>
+                                    </ComboBox>
+                                    <Region HBox.hgrow="ALWAYS" />
+                                    <ComboBox fx:id="setLuxAction2" prefHeight="25.0" prefWidth="138.0" promptText="Wybierz akcje" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <Label alignment="CENTER" text="Ruch przed domem:" textAlignment="CENTER">
+                                       <font>
+                                          <Font name="Arial Black" size="19.0" />
+                                       </font>
+                                       <HBox.margin>
+                                          <Insets right="40.0" />
+                                       </HBox.margin>
+                                    </Label>
+                                    <Led fx:id="luxLed" prefHeight="100.0" prefWidth="56.0" />
+                                    <Button mnemonicParsing="false" onAction="#luxButt" prefHeight="44.0" prefWidth="141.0" text="Wyślij żądanie">
+                                       <HBox.margin>
+                                          <Insets left="40.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <Label alignment="CENTER" text="Woda w garażu:" textAlignment="CENTER">
+                                       <font>
+                                          <Font name="Arial Black" size="19.0" />
+                                       </font>
+                                       <HBox.margin>
+                                          <Insets right="40.0" />
+                                       </HBox.margin>
+                                    </Label>
+                                    <Led fx:id="waterLed" prefHeight="100.0" prefWidth="56.0">
+                                       <HBox.margin>
+                                          <Insets left="42.0" />
+                                       </HBox.margin>
+                                    </Led>
+                                    <Button mnemonicParsing="false" onAction="#pumpBut" prefHeight="44.0" prefWidth="141.0" text="Włącz pompę!">
+                                       <HBox.margin>
+                                          <Insets left="40.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                           </children>
+                           <padding>
+                              <Insets left="5.0" top="5.0" />
+                           </padding>
+                        </VBox>
+                     </children></AnchorPane>
               </content>
             </Tab>
         </tabs>

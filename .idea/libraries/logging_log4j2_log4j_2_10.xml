@@ -1,0 +1,51 @@
+<component name="libraryTable">
+  <library name="logging-log4j2-log4j-2.10">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/../../logging-log4j2-log4j-2.10.0" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/../../logging-log4j2-log4j-2.10.0/log4j-1.2-api/src/main/java" />
+      <root url="file://$PROJECT_DIR$/../../logging-log4j2-log4j-2.10.0/log4j-1.2-api/src/test/java" />
+      <root url="file://$PROJECT_DIR$/../../logging-log4j2-log4j-2.10.0/log4j-api-java9/src/main/java" />
+      <root url="file://$PROJECT_DIR$/../../logging-log4j2-log4j-2.10.0/log4j-api-java9/src/test/java" />
+      <root url="file://$PROJECT_DIR$/../../logging-log4j2-log4j-2.10.0/log4j-api/src/main/java" />
+      <root url="file://$PROJECT_DIR$/../../logging-log4j2-log4j-2.10.0/log4j-api/src/test/java" />
+      <root url="file://$PROJECT_DIR$/../../logging-log4j2-log4j-2.10.0/log4j-appserver/src/main/java" />
+      <root url="file://$PROJECT_DIR$/../../logging-log4j2-log4j-2.10.0/log4j-cassandra/src/main/java" />
+      <root url="file://$PROJECT_DIR$/../../logging-log4j2-log4j-2.10.0/log4j-cassandra/src/test/java" />
+      <root url="file://$PROJECT_DIR$/../../logging-log4j2-log4j-2.10.0/log4j-core-its/src/test/java" />
+      <root url="file://$PROJECT_DIR$/../../logging-log4j2-log4j-2.10.0/log4j-core/src/main/java" />
+      <root url="file://$PROJECT_DIR$/../../logging-log4j2-log4j-2.10.0/log4j-core/src/test/java" />
+      <root url="file://$PROJECT_DIR$/../../logging-log4j2-log4j-2.10.0/log4j-couchdb/src/main/java" />
+      <root url="file://$PROJECT_DIR$/../../logging-log4j2-log4j-2.10.0/log4j-flume-ng/src/main/java" />
+      <root url="file://$PROJECT_DIR$/../../logging-log4j2-log4j-2.10.0/log4j-flume-ng/src/test/java" />
+      <root url="file://$PROJECT_DIR$/../../logging-log4j2-log4j-2.10.0/log4j-iostreams/src/main/java" />
+      <root url="file://$PROJECT_DIR$/../../logging-log4j2-log4j-2.10.0/log4j-iostreams/src/test/java" />
+      <root url="file://$PROJECT_DIR$/../../logging-log4j2-log4j-2.10.0/log4j-jcl/src/main/java" />
+      <root url="file://$PROJECT_DIR$/../../logging-log4j2-log4j-2.10.0/log4j-jcl/src/test/java" />
+      <root url="file://$PROJECT_DIR$/../../logging-log4j2-log4j-2.10.0/log4j-jmx-gui/src/main/java" />
+      <root url="file://$PROJECT_DIR$/../../logging-log4j2-log4j-2.10.0/log4j-jul/src/main/java" />
+      <root url="file://$PROJECT_DIR$/../../logging-log4j2-log4j-2.10.0/log4j-jul/src/test/java" />
+      <root url="file://$PROJECT_DIR$/../../logging-log4j2-log4j-2.10.0/log4j-liquibase/src/main/java" />
+      <root url="file://$PROJECT_DIR$/../../logging-log4j2-log4j-2.10.0/log4j-liquibase/src/test/java" />
+      <root url="file://$PROJECT_DIR$/../../logging-log4j2-log4j-2.10.0/log4j-mongodb/src/main/java" />
+      <root url="file://$PROJECT_DIR$/../../logging-log4j2-log4j-2.10.0/log4j-mongodb/src/test/java" />
+      <root url="file://$PROJECT_DIR$/../../logging-log4j2-log4j-2.10.0/log4j-osgi/src/test/java" />
+      <root url="file://$PROJECT_DIR$/../../logging-log4j2-log4j-2.10.0/log4j-perf/src/main/java" />
+      <root url="file://$PROJECT_DIR$/../../logging-log4j2-log4j-2.10.0/log4j-samples/configuration/src/main/java" />
+      <root url="file://$PROJECT_DIR$/../../logging-log4j2-log4j-2.10.0/log4j-samples/configuration/src/test/java" />
+      <root url="file://$PROJECT_DIR$/../../logging-log4j2-log4j-2.10.0/log4j-samples/flume-common/src/main/java" />
+      <root url="file://$PROJECT_DIR$/../../logging-log4j2-log4j-2.10.0/log4j-samples/loggerProperties/src/main/java" />
+      <root url="file://$PROJECT_DIR$/../../logging-log4j2-log4j-2.10.0/log4j-samples/loggerProperties/src/test/java" />
+      <root url="file://$PROJECT_DIR$/../../logging-log4j2-log4j-2.10.0/log4j-slf4j-impl/src/main/java" />
+      <root url="file://$PROJECT_DIR$/../../logging-log4j2-log4j-2.10.0/log4j-slf4j-impl/src/test/java" />
+      <root url="file://$PROJECT_DIR$/../../logging-log4j2-log4j-2.10.0/log4j-taglib/src/main/java" />
+      <root url="file://$PROJECT_DIR$/../../logging-log4j2-log4j-2.10.0/log4j-taglib/src/test/java" />
+      <root url="file://$PROJECT_DIR$/../../logging-log4j2-log4j-2.10.0/log4j-to-slf4j/src/main/java" />
+      <root url="file://$PROJECT_DIR$/../../logging-log4j2-log4j-2.10.0/log4j-to-slf4j/src/test/java" />
+      <root url="file://$PROJECT_DIR$/../../logging-log4j2-log4j-2.10.0/log4j-web/src/main/java" />
+      <root url="file://$PROJECT_DIR$/../../logging-log4j2-log4j-2.10.0/log4j-web/src/test/java" />
+    </SOURCES>
+  </library>
+</component>
