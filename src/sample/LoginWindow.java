@@ -44,12 +44,12 @@ public class LoginWindow {
              alert.setContentText("Sprawdź czy podałeś dobre wartości");
              alert.showAndWait();
          } else {
-             // Client connectClient = new Client(user.getText(),checkConnect);
-             //ipAddres = user.getText();
-             // portNum = Integer.parseInt(password.getText());
-             Client connectClient = new Client("192.168.0.14", checkConnect);
-             ipAddres = "192.168.0.14";
-             portNum = 8888;
+             Client connectClient = new Client(user.getText(),checkConnect);
+             ipAddres = user.getText();
+              portNum = Integer.parseInt(password.getText());
+             //Client connectClient = new Client("192.168.0.14", checkConnect);
+             //ipAddres = "192.168.0.14";
+             //portNum = 8888;
              connectClient.port = portNum;
              connectClient.openWindow = false;
              //"$KG" +0xFF+0x52+0x53+0 -- ramka gdzie 0x2A to "CONNECT"
