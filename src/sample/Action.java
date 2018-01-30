@@ -2,6 +2,11 @@ package sample;
 
 import java.awt.*;
 
+/*---------------Klasa odpowiadająca za wybór akcji przy przekraczaniu thresholdów--------------
+*
+* Tworzona jest tutaj ramka do wysłania przez UDP. Zaznaczam, że tworzona jest na potrzeby thresholdów.
+* Ramka do odczytywania temp czy naświetlenia jest stworzona statycznie, gdyż zawsze jest wysyłana taka sama. */
+
 public class Action {
 
     private int command;
@@ -93,8 +98,6 @@ public class Action {
 
         value1 = Float.toString(value); //wartość float zmieniona na Stringa
         valueSize =value1.length(); //długość stringa
-
-        //System.out.println(command+"="+value+"\n"+valueSize+"="+Setting1);
 
     }
 

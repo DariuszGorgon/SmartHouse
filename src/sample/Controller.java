@@ -22,10 +22,13 @@ import java.util.logging.Logger;
 
 import static java.lang.Thread.sleep;
 
+/*Klasa odpowiedzialna za wyświetlanie głównego GUI. Inicjalizuje ona Interfejs który posiada metody do edycji GUI*/
+
 public class Controller implements MyInterface {
 
     private static Controller instance;
 
+    // elementy do pierwszego okna logów
     public Label temp2;
     public ComboBox<String> setParam;
     public TextField setTempVar;
@@ -52,6 +55,8 @@ public class Controller implements MyInterface {
 
     private Action stringAction;
 
+    // metoda do killowania wątków do odbioru danych z czujników
+
     public void setStopThread(boolean stopThread) {
         this.stopThread = stopThread;
     }
@@ -68,9 +73,10 @@ public class Controller implements MyInterface {
     private final Lock readLock = rwLock.readLock();
     static Logger log = Logger.getLogger(Controller.class.getName());
 
-    //parametry o Adresie oraz porcie
+    //parametry posiadające Adress i port
     String newAdress;
     int newPort;
+
     @FXML
     public void initialize() throws IOException {
         eventsListView.setPlaceholder(new Label("Brak zdarzeń"));
@@ -89,7 +95,6 @@ public class Controller implements MyInterface {
         threshList.add("Próg dolny");
         thresholdValue.getItems().addAll(threshList);
         thresholdLux.getItems().addAll(threshList);
-
 
 
         List<String> actionList = new ArrayList<>();
@@ -113,91 +118,88 @@ public class Controller implements MyInterface {
         setLuxAction2.getItems().addAll(actionList1);
 
         geetFirst();
-        }
+    }
 
-        void geetFirst() throws IOException {
-            Client startClient = new Client(newAdress,myInterface);
-            startClient.openWindow = true;
-            startClient.port =newPort;
-            startClient.sendMes("$KG"+ (char)0x2D+"RF"+(char)0x00);
-            startClient.sendMes("$KG"+ (char)0x2F+"RF"+(char)0x00);
-            startClient.sendMes("$KG"+ (char)0x33+"RF"+(char)0x00);
-            startClient.sendMes("$KG"+ (char)0x35+"RF"+(char)0x00);
-            startClient.sendMes("$KG"+ (char)0X39+"RF"+(char)0x00);
-            startClient.sendMes("$KG"+ (char)0X3B+"RF"+(char)0x00);
-            startClient.sendMes("$KG"+ (char)0X37+"RI"+(char)0x00);
-           // startClient.sendMes("$KG"+ (char)0X2B+"RI"+(char)0x00);
+    // pobranie wartości thresholdów z servera
+    void geetFirst() throws IOException {
+        Client startClient = new Client(newAdress, myInterface);
+        startClient.openWindow = true;
+        startClient.port = newPort;
+        startClient.sendMes("$KG" + (char) 0x2D + "RF" + (char) 0x00);
+        startClient.sendMes("$KG" + (char) 0x2F + "RF" + (char) 0x00);
+        startClient.sendMes("$KG" + (char) 0x33 + "RF" + (char) 0x00);
+        startClient.sendMes("$KG" + (char) 0x35 + "RF" + (char) 0x00);
+        startClient.sendMes("$KG" + (char) 0X39 + "RF" + (char) 0x00);
+        startClient.sendMes("$KG" + (char) 0X3B + "RF" + (char) 0x00);
+        startClient.sendMes("$KG" + (char) 0X37 + "RI" + (char) 0x00);
+        // startClient.sendMes("$KG"+ (char)0X2B+"RI"+(char)0x00);
 
-            Client tempClient = new Client(newAdress, myInterface);
-            tempClient.openWindow = true;
-            tempClient.port = newPort;
-            Thread newThread = new Thread(()->
-            {
-                while(stopThread){
-                    try {
-                        tempClient.sendMes("$KG"+ (char)0x2C+"RS"+(char)0x00);
-                        tempClient.sendMes("$KG"+ (char)0x32+"RS"+(char)0x00);
-                        //startClient.sendMes("$KG"+ (char)0X38+"RI"+(char)0x00);
-                        sleep(5000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+        Client tempClient = new Client(newAdress, myInterface);
+        tempClient.openWindow = true;
+        tempClient.port = newPort;
+        Thread newThread = new Thread(() -> { //Wątek temperaturowy
+            while (stopThread) {
+                try {
+                    tempClient.sendMes("$KG" + (char) 0x2C + "RS" + (char) 0x00);
+                    tempClient.sendMes("$KG" + (char) 0x32 + "RS" + (char) 0x00);
+                    //startClient.sendMes("$KG"+ (char)0X38+"RI"+(char)0x00);
+                    sleep(5000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-            });
-            newThread.setName("Temperature Thread");
-            newThread.start();
+            }
+        });
+        newThread.setName("Temperature Thread");
+        newThread.start();
 
-            Client luxClient = new Client(newAdress, myInterface);
-            luxClient.openWindow = true;
-            luxClient.port = newPort;
-            Thread luxThread = new Thread(()->
-            {
-                while(stopThread){
-                    try {
-                        startClient.sendMes("$KG"+ (char)0X38+"RI"+(char)0x00);
-                        sleep(1000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+        Client luxClient = new Client(newAdress, myInterface);
+        luxClient.openWindow = true;
+        luxClient.port = newPort;
+        Thread luxThread = new Thread(() -> {  //Wątek od luxów
+            while (stopThread) {
+                try {
+                    startClient.sendMes("$KG" + (char) 0X38 + "RI" + (char) 0x00);
+                    sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-            });
-            luxThread.setName("Lux Thread");
-            luxThread.start();
-            log.info("konsola");
+            }
+        });
+        luxThread.setName("Lux Thread");
+        luxThread.start();
 
-        }
-
-    public void sendInit(ActionEvent actionEvent) throws IOException {
-
+        //Log4j test
+        log.info("konsola");
 
     }
 
     public Controller() {
         instance = this;
     }
+
     static Controller getInstance() {
         return instance;
     }
 
     public void clicButton(ActionEvent actionEvent) throws IOException {
-
         String name = setParam.getValue();
         String threshold = thresholdValue.getValue();
         String setting = setAction.getValue();
         String setting1 = setAction1.getValue();
-        if (!setTempVar.getText().matches("[0-9]*.[0-9]*")| setTempVar.getText().isEmpty()){
+
+        // Sprawdzanie pparametru wpisywanego w threshold
+        if (!setTempVar.getText().matches("[0-9]*.[0-9]*") | setTempVar.getText().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Uwaga!");
             alert.setHeaderText("Pole parametru jest puste lub nie jest liczbą");
             alert.setContentText("Sprawdź czy podałeś dobre wartości");
             alert.showAndWait();
-
         } else {
-            if (name==null| threshold==null | setting==null |setting1==null) {
+            if (name == null | threshold == null | setting == null | setting1 == null) {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Uwaga!");
                 alert.setHeaderText("Nie wybrano wszystkich argumentów");
@@ -209,7 +211,6 @@ public class Controller implements MyInterface {
                 Client commandThres = new Client(newAdress, myInterface);
                 commandThres.port = newPort;
                 commandThres.openWindow = true;
-
                 commandThres.sendMes(stringAction.getThres());
                 commandThres.sendMes(stringAction.getSett());
                 commandThres.sendMes(stringAction.getSett1());
@@ -217,24 +218,23 @@ public class Controller implements MyInterface {
         }
     }
 
-
     public void pumpBut(ActionEvent actionEvent) {
     }
-
     public void luxButt(ActionEvent actionEvent) throws IOException {
         String name = "Lux";
         String threshold = thresholdLux.getValue();
         String setting = setLuxAction1.getValue();
         String setting1 = setLuxAction2.getValue();
-        if (!setLuxVar.getText().matches("[0-9]*.[0-9]*")| setLuxVar.getText().isEmpty()){
+
+        // Sprawdzanie pparametru wpisywanego w thresholdu
+        if (!setLuxVar.getText().matches("[0-9]*.[0-9]*") | setLuxVar.getText().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Uwaga!");
             alert.setHeaderText("Pole parametru jest puste lub nie jest liczbą");
             alert.setContentText("Sprawdź czy podałeś dobre wartości");
             alert.showAndWait();
-
         } else {
-            if (name==null| threshold==null | setting==null |setting1==null) {
+            if (name == null | threshold == null | setting == null | setting1 == null) {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Uwaga!");
                 alert.setHeaderText("Nie wybrano wszystkich argumentów");
@@ -246,13 +246,15 @@ public class Controller implements MyInterface {
                 Client commandThres = new Client(newAdress, myInterface);
                 commandThres.port = newPort;
                 commandThres.openWindow = true;
-
                 commandThres.sendMes(stringAction.getThres());
                 commandThres.sendMes(stringAction.getSett());
                 commandThres.sendMes(stringAction.getSett1());
             }
         }
     }
+    /*--------------Settery i gettery edytowalnych pół w GUI ------------
+    *---- Przy okazji każdy jest odśweirzany przy kolejnych zmianach----*/
+
     @Override
     public void editListwiev(String loggin) {
         eventsListView.setCellFactory(TextFieldListCell.forListView());
@@ -270,65 +272,49 @@ public class Controller implements MyInterface {
     public String getTemp1() {
         return temp1.getText();
     }
-
     public void setLux(String lux1) {
         Platform.runLater(() -> lux.setText(lux1));
     }
     public void setLuxLed(boolean check) {
         Platform.runLater(() -> luxLed.setOn(check));
     }
-
     public void setLed2up(boolean check) {
         Platform.runLater(() -> led2up.setOn(check));
     }
-
     public void setTempTres2up(String checkThres) {
         Platform.runLater(() -> tempTres2up.setText(checkThres));
     }
-
     public void setLed2down(boolean check) {
         Platform.runLater(() -> led2down.setOn(check));
     }
-
     public void setTempTres2down(String checkThres) {
         Platform.runLater(() -> tempTres2down.setText(checkThres));
     }
-
     public void setLed1up(boolean check) {
         Platform.runLater(() -> led1up.setOn(check));
     }
-
     public void setTempTres1up(String checkThres) {
         Platform.runLater(() -> tempTres1up.setText(checkThres));
     }
-
     public void setLed1Down(boolean check) {
         Platform.runLater(() -> led1Down.setOn(check));
     }
-
     public void setTempTres1down(String checkThres) {
         Platform.runLater(() -> tempTres1down.setText(checkThres));
     }
-
     public String getTempTres2up() {
         return tempTres2up.getText();
     }
-
     public String getTempTres2down() {
         return tempTres2down.getText();
     }
-
     public String getTempTres1up() {
         return tempTres1up.getText();
     }
-
     public String getTempTres1down() {
         return tempTres1down.getText();
     }
-
     public void setWaterLed(boolean check) {
         Platform.runLater(() -> waterLed.setOn(check));
     }
-
-
 }
